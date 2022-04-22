@@ -1,0 +1,21 @@
+service: aws-quarkes-simple-http-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: java11
+
+  stage: dev
+  region: sa-east-1
+
+package:
+  artifact: build/function.zip
+
+functions:
+  hello:
+    handler: io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest
+    events:
+      - http:
+          path: /hello
+          method: post
