@@ -1,0 +1,19 @@
+service: lambda
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: go1.x
+  memorySize: 512
+
+  stage: dev
+  region: sa-east-1
+
+
+package:
+  artifact: bin/function.zip
+
+functions:
+  auth:
+    handler: bin/auth

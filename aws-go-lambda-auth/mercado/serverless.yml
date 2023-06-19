@@ -1,0 +1,35 @@
+service: mercado
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: go1.x
+  memorySize: 512
+
+  stage: dev
+  region: sa-east-1
+
+  httpApi:
+    cors: true
+    authorizers:
+      customAuthorizer:
+        type: request
+        functionArn: arn:aws:lambda:sa-east-1:......
+        enableSimpleResponses: true
+        payloadVersion: '2.0'
+        identitySource:
+          - $request.header.Authorization
+
+package:
+  artifact: bin/function.zip
+
+functions:
+  produto:
+    handler: bin/produto
+    events:
+      - httpApi:
+          path: /mercado/produtos
+          method: get
+          authorizer:
+            name: customAuthorizer
