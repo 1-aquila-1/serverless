@@ -1,0 +1,25 @@
+service: estudo
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: provided.al2
+  memorySize: 512
+
+  stage: dev
+  region: sa-east-1
+
+
+package:
+  individually: true
+
+functions:
+  aluno:
+    handler: bootstrap
+    package:
+      artifact: bin/aluno/aluno.zip
+  escola:
+    handler: bootstrap
+    package:
+      artifact: bin/escola/escola.zip
